@@ -1,8 +1,14 @@
 let alunos = [];
 
-document.getElementById("imcForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    calcularIMC(); // ✅ Agora chamamos a função corretamente
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("imcForm");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        calcularIMC();
+    });
+
 });
 
 function calcularIMC() {

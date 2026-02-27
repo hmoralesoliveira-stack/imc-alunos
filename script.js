@@ -33,9 +33,24 @@ function calcularIMC() {
     }
 
     // 🧮 Cálculo do IMC
-    const imc = peso / (altura * altura);
-    const imcFormatado = imc.toFixed(2);
-    alunos.push({
+const imc = peso / (altura * altura);
+const imcFormatado = imc.toFixed(2);
+
+// 📊 Classificação
+let classificacao = "";
+
+if (imc < 18.5) {
+    classificacao = "Abaixo do peso";
+} else if (imc < 25) {
+    classificacao = "Peso normal";
+} else if (imc < 30) {
+    classificacao = "Sobrepeso";
+} else {
+    classificacao = "Obesidade";
+}
+
+// ✅ Agora sim salva corretamente
+alunos.push({
     nome,
     serie,
     idade,

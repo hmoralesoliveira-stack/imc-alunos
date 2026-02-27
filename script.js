@@ -1,5 +1,4 @@
-let alunos = [];
-
+let alunos = JSON.parse(localStorage.getItem("alunos")) || [];
 document.addEventListener("DOMContentLoaded", function () {
 
     const form = document.getElementById("imcForm");
@@ -59,7 +58,7 @@ function calcularIMC() {
         imc: imcFormatado,
         classificacao
     });
-
+localStorage.setItem("alunos", JSON.stringify(alunos));
     resultadoDiv.innerHTML = `
         <h3>Resultado</h3>
         <p><strong>Nome:</strong> ${nome}</p>

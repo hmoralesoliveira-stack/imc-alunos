@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Aluno - Cálculo de IMC</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Cadastro de Aluno</h1>
+
+        <form id="imcForm">
+            <input type="text" id="nome" placeholder="Nome do aluno">
+            <input type="text" id="serie" placeholder="Série">
+            <input type="number" id="idade" placeholder="Idade">
+            <input type="number" id="peso" placeholder="Peso (kg)" step="0.1">
+            <input type="number" id="altura" placeholder="Altura (m)" step="0.01">
+
+            <div class="buttons">
+                <button type="submit">Calcular IMC</button>
+                <button type="button" onclick="limparCampos()">Limpar</button>
+            </div>
+        </form>
+
+        <div id="resultado" class="card hidden"></div>
+        <div id="erro" class="erro"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

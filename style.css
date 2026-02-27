@@ -9,16 +9,17 @@ body {
 .container {
     background: white;
     padding: 25px;
-    border-radius: 8px;
-    width: 350px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    width: 360px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
 h1 {
     text-align: center;
+    margin-bottom: 20px;
 }
 
-/* INPUTS E SELECT PADRONIZADOS */
+/* INPUTS E SELECT */
 input,
 select {
     width: 100%;
@@ -27,17 +28,24 @@ select {
     border-radius: 6px;
     border: 1px solid #ccc;
     font-size: 14px;
+    background-color: white;
+}
+
+/* Remove estilo padrão do select */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 /* BOTÕES */
 .buttons {
     display: flex;
-    justify-content: space-between;
-    gap: 8px; /* espaço entre os botões */
+    gap: 8px;
 }
 
 button {
-    flex: 1; /* deixa todos do mesmo tamanho */
+    flex: 1;
     padding: 10px;
     border: none;
     background-color: #2c7be5;

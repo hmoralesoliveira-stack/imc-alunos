@@ -1,7 +1,5 @@
-// Carrega alunos do LocalStorage
 let alunos = JSON.parse(localStorage.getItem("alunos")) || [];
 
-// Garante que o DOM carregue antes de executar
 document.addEventListener("DOMContentLoaded", function () {
 
     const form = document.getElementById("imcForm");
@@ -28,7 +26,6 @@ function calcularIMC() {
     erroDiv.textContent = "";
     resultadoDiv.classList.add("hidden");
 
-    // 🔎 Validação
     if (!nome || !serie || isNaN(idade) || !sexo || isNaN(peso) || isNaN(altura)) {
         erroDiv.textContent = "⚠️ Todos os campos devem ser preenchidos corretamente.";
         return;
@@ -39,13 +36,12 @@ function calcularIMC() {
         return;
     }
 
-    // 🧮 Cálculo IMC
     const imc = peso / (altura * altura);
     const imcFormatado = imc.toFixed(2);
 
     let classificacao = "";
 
-    // 👶 Classificação Infantil (6–12 anos)
+    // Infantil
     if (idade >= 6 && idade <= 12) {
 
         const tabelaOMS = {
@@ -61,7 +57,7 @@ function calcularIMC() {
         const referencia = tabelaOMS[idade]?.[sexo];
 
         if (!referencia) {
-            classificacao = "Faixa etária fora da tabela infantil (6–12 anos)";
+            classificacao = "Faixa etária fora da tabela infantil";
         } else {
             if (imc < referencia.p5) {
                 classificacao = "Baixo peso (Percentil < 5)";
@@ -75,19 +71,13 @@ function calcularIMC() {
         }
 
     } else {
-        // 👨‍🦱 Classificação Adulto
-        if (imc < 18.5) {
-            classificacao = "Abaixo do peso";
-        } else if (imc < 25) {
-            classificacao = "Peso normal";
-        } else if (imc < 30) {
-            classificacao = "Sobrepeso";
-        } else {
-            classificacao = "Obesidade";
-        }
+        // Adulto
+        if (imc < 18.5) classificacao = "Abaixo do peso";
+        else if (imc < 25) classificacao = "Peso normal";
+        else if (imc < 30) classificacao = "Sobrepeso";
+        else classificacao = "Obesidade";
     }
 
-    // 💾 Salva aluno
     alunos.push({
         nome,
         serie,
@@ -101,7 +91,6 @@ function calcularIMC() {
 
     localStorage.setItem("alunos", JSON.stringify(alunos));
 
-    // 🖥️ Exibe resultado
     resultadoDiv.innerHTML = `
         <h3>Resultado</h3>
         <p><strong>Nome:</strong> ${nome}</p>
@@ -115,14 +104,12 @@ function calcularIMC() {
     resultadoDiv.classList.remove("hidden");
 }
 
-// 🔄 Limpar campos
 function limparCampos() {
     document.getElementById("imcForm").reset();
     document.getElementById("resultado").classList.add("hidden");
     document.getElementById("erro").textContent = "";
 }
 
-// 📊 Exportar Excel (CSV unificado)
 function exportarExcel() {
 
     if (alunos.length === 0) {
@@ -141,6 +128,5 @@ function exportarExcel() {
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = "alunos_imc.csv";
-
     link.click();
 }

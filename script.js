@@ -1,13 +1,12 @@
 let alunos = [];
-document.getElementById("imcForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Impede recarregar a página
 
-    calcularIMC();
+document.getElementById("imcForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    calcularIMC(); // ✅ Agora chamamos a função corretamente
 });
 
 function calcularIMC() {
 
-    // Pegando valores do formulário
     const nome = document.getElementById("nome").value.trim();
     const serie = document.getElementById("serie").value.trim();
     const idade = document.getElementById("idade").value;
@@ -17,13 +16,11 @@ function calcularIMC() {
     const resultadoDiv = document.getElementById("resultado");
     const erroDiv = document.getElementById("erro");
 
-    // Limpa mensagens anteriores
     erroDiv.textContent = "";
     resultadoDiv.classList.add("hidden");
 
-    // 🔎 Validações básicas
-    if (!nome || !serie || !idade || !peso || !altura) {
-        erroDiv.textContent = "⚠️ Todos os campos devem ser preenchidos.";
+    if (!nome || !serie || !idade || isNaN(peso) || isNaN(altura)) {
+        erroDiv.textContent = "⚠️ Todos os campos devem ser preenchidos corretamente.";
         return;
     }
 
@@ -32,35 +29,9 @@ function calcularIMC() {
         return;
     }
 
-    // 🧮 Cálculo do IMC
-const imc = peso / (altura * altura);
-const imcFormatado = imc.toFixed(2);
+    const imc = peso / (altura * altura);
+    const imcFormatado = imc.toFixed(2);
 
-// 📊 Classificação
-let classificacao = "";
-
-if (imc < 18.5) {
-    classificacao = "Abaixo do peso";
-} else if (imc < 25) {
-    classificacao = "Peso normal";
-} else if (imc < 30) {
-    classificacao = "Sobrepeso";
-} else {
-    classificacao = "Obesidade";
-}
-
-// ✅ Agora sim salva corretamente
-alunos.push({
-    nome,
-    serie,
-    idade,
-    peso,
-    altura,
-    imc: imcFormatado,
-    classificacao
-});
-
-    // 📊 Classificação
     let classificacao = "";
 
     if (imc < 18.5) {
@@ -73,7 +44,16 @@ alunos.push({
         classificacao = "Obesidade";
     }
 
-    // 🖥️ Exibição do resultado
+    alunos.push({
+        nome,
+        serie,
+        idade,
+        peso,
+        altura,
+        imc: imcFormatado,
+        classificacao
+    });
+
     resultadoDiv.innerHTML = `
         <h3>Resultado</h3>
         <p><strong>Nome:</strong> ${nome}</p>
@@ -86,12 +66,12 @@ alunos.push({
     resultadoDiv.classList.remove("hidden");
 }
 
-// 🔄 Limpar campos
 function limparCampos() {
     document.getElementById("imcForm").reset();
     document.getElementById("resultado").classList.add("hidden");
     document.getElementById("erro").textContent = "";
 }
+
 function exportarExcel() {
 
     if (alunos.length === 0) {

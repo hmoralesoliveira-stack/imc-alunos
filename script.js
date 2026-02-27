@@ -1,4 +1,4 @@
-// Espera o formulário ser enviado
+let alunos = [];
 document.getElementById("imcForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Impede recarregar a página
 
@@ -35,6 +35,15 @@ function calcularIMC() {
     // 🧮 Cálculo do IMC
     const imc = peso / (altura * altura);
     const imcFormatado = imc.toFixed(2);
+    alunos.push({
+    nome,
+    serie,
+    idade,
+    peso,
+    altura,
+    imc: imcFormatado,
+    classificacao
+});
 
     // 📊 Classificação
     let classificacao = "";
@@ -67,4 +76,25 @@ function limparCampos() {
     document.getElementById("imcForm").reset();
     document.getElementById("resultado").classList.add("hidden");
     document.getElementById("erro").textContent = "";
+}
+function exportarExcel() {
+
+    if (alunos.length === 0) {
+        alert("Nenhum aluno cadastrado para exportar.");
+        return;
+    }
+
+    let csv = "Nome,Série,Idade,Peso,Altura,IMC,Classificação\n";
+
+    alunos.forEach(aluno => {
+        csv += `${aluno.nome},${aluno.serie},${aluno.idade},${aluno.peso},${aluno.altura},${aluno.imc},${aluno.classificacao}\n`;
+    });
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "alunos_imc.csv";
+
+    link.click();
 }

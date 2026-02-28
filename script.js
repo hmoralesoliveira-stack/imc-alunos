@@ -60,13 +60,13 @@ function calcularIMC() {
             classificacao = "Faixa etária fora da tabela infantil";
         } else {
             if (imc < referencia.p5) {
-                classificacao = "Baixo peso (Percentil < 5)";
+                classificacao = "Baixo peso (Percentual < 5)";
             } else if (imc < referencia.p85) {
-                classificacao = "Peso adequado (Percentil 5–84)";
+                classificacao = "Peso adequado (Percentual 5–84)";
             } else if (imc < referencia.p95) {
-                classificacao = "Sobrepeso (Percentil 85–94)";
+                classificacao = "Sobrepeso (Percentual 85–94)";
             } else {
-                classificacao = "Obesidade (Percentil ≥ 95)";
+                classificacao = "Obesidade (Percentual ≥ 95)";
             }
         }
 
